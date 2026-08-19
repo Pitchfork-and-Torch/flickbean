@@ -1,0 +1,18 @@
+# Flickbean
+
+> Rub-not-tap idle game at https://flickbean.grok.me/
+
+## Summary
+Flickbean is a free browser game. Drag across the orb. Taps earn almost nothing. Rub fast for pops. Hold max speed to charge a frenzy prize. Buy Path upgrades. Unlock BEANMASTER, ORBITAL, then BEAN GOD.
+
+No account. Progress stays in localStorage. Made by @SuddenlyJon.
+
+## How to play
+1. Press Start rubbing.
+2. Drag, do not tap.
+3. Heat builds toward a climax. Frenzy fills at max speed.
+4. Spend rubs in Path. Daily Flick is a UTC-day distance goal.
+
+## Links
+- Live: https://flickbean.grok.me/
+- Source: https://github.com/Pitchfork-and-Torch/flickbean
