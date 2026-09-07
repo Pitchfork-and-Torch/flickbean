@@ -1,6 +1,10 @@
 {
   "name": "flickbean",
+  "version": "1.2.1",
   "private": true,
+  "description": "Browser game. Rub, don't tap.",
+  "homepage": "https://flickbean.jonbailey.xyz/",
+  "license": "MIT",
   "sideEffects": false,
   "type": "module",
   "overrides": {

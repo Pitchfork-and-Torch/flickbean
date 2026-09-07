@@ -6,6 +6,9 @@ import {
   Scripts,
 } from "@tanstack/react-router";
 import appCss from "../styles.css?url";
+import { APP_VERSION } from "../version";
+
+const OG_IMAGE = `https://flickbean.jonbailey.xyz/og.jpg?v=${APP_VERSION}`;
 
 export const Route = createRootRoute({
   head: () => ({
@@ -31,7 +34,7 @@ export const Route = createRootRoute({
       },
       { property: "og:url", content: "https://flickbean.jonbailey.xyz/" },
       { property: "og:type", content: "website" },
-      { property: "og:image", content: "https://flickbean.jonbailey.xyz/og.jpg?v=1.1.0" },
+      { property: "og:image", content: OG_IMAGE },
       { property: "og:image:width", content: "1200" },
       { property: "og:image:height", content: "630" },
       { property: "og:image:type", content: "image/jpeg" },
@@ -43,7 +46,7 @@ export const Route = createRootRoute({
       { name: "twitter:creator", content: "@SuddenlyJon" },
       { name: "twitter:title", content: "Flickbean - rub, don't tap" },
       { name: "twitter:description", content: "Stop tapping. Start rubbing." },
-      { name: "twitter:image", content: "https://flickbean.jonbailey.xyz/og.jpg?v=1.1.0" },
+      { name: "twitter:image", content: OG_IMAGE },
       { name: "twitter:image:alt", content: "Flickbean - rub, don't tap" },
       { name: "robots", content: "index,follow" },
     ],
@@ -92,7 +95,7 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
               contentRating: "Adult 18+",
               description:
                 "Flickbean is a screen-rub idle game. Stop tapping. Start rubbing.",
-              image: "https://flickbean.jonbailey.xyz/og.jpg?v=1.1.0",
+              image: OG_IMAGE,
               author: {
                 "@type": "Person",
                 name: "SuddenlyJon",

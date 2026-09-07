@@ -1,12 +1,11 @@
-﻿# Fontshare fonts (project copy)
+# Fontshare fonts (project copy)
 
-Self-hosted from ~/design-assets/fontshare
-Default: Clash Display (display) + Satoshi (body). General Sans optional product face.
-License: ITF Free Font License - commercial OK; do not resell font files.
-Link in HTML:
+Self-hosted Clash Display (display) and Satoshi (body). General Sans is optional.
+License: ITF Free Font License. Commercial use OK. Do not resell the font files.
 
+Link:
+
+```html
 <link rel="stylesheet" href="/fonts/fontshare/fonts.css" />
 <link rel="stylesheet" href="/fonts/fontshare/tokens.css" />
-
-Re-install:
-powershell -ExecutionPolicy Bypass -File $env:USERPROFILE\.grok\scripts\Install-FontshareIntoProject.ps1 -ProjectPath <this-repo>
+```
