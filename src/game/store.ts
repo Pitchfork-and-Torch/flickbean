@@ -92,6 +92,7 @@ function saveSnapshot(state: GameState) {
     started: state.started,
     beanMaster: state.beanMaster,
     faces: state.faces.slice(-FACE_PILE_MAX),
+    facesCollected: state.facesCollected,
     ascend: state.ascend,
     mythic: state.mythic,
     challenges: state.challenges,
@@ -303,7 +304,12 @@ export const useGame = create<GameState>((set, get) => ({
     const beanMaster = Boolean(s.beanMaster) || isAllUpgradesMaxed(upgrades);
     const prizes = s.prizes ?? 0;
     let faces = Array.isArray(s.faces) ? s.faces.slice(-FACE_PILE_MAX) : [];
-    if (faces.length === 0 && prizes > 0) faces = facesFromCount(prizes);
+    const savedFaces = Number.isFinite(s.facesCollected)
+      ? Math.max(0, Math.floor(s.facesCollected as number))
+      : 0;
+    // Older saves lack facesCollected; prizes is the floor (one face per prize).
+    const facesCollected = Math.max(savedFaces, prizes, faces.length);
+    if (faces.length === 0 && facesCollected > 0) faces = facesFromCount(facesCollected);
     for (const f of faces) {
       if (f.id >= faceId) faceId = f.id + 1;
     }
@@ -325,7 +331,7 @@ export const useGame = create<GameState>((set, get) => ({
       upgrades,
       beanMaster,
       faces,
-      facesCollected: Math.max(prizes, faces.length),
+      facesCollected,
       ascend,
       mythic,
       challenges,

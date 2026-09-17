@@ -49,6 +49,8 @@ export type GameSnapshot = {
   started: boolean;
   beanMaster?: boolean;
   faces?: CollectedFace[];
+  /** O Count. Can exceed prizes (bonus drops) and faces.length (pile cap). */
+  facesCollected?: number;
   ascend?: Record<AscendId, number>;
   mythic?: Record<MythicId, number>;
   challenges?: Partial<Record<ChallengeId, boolean>>;
