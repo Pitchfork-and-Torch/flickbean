@@ -249,12 +249,21 @@ export function RubCanvas() {
       stopVoice();
     };
 
+    // pointerleave still fires under setPointerCapture when the finger slides
+    // outside the canvas. Ending the stroke there cuts mid-drag rubs even though
+    // capture owns the pointer. Only use leave as a fallback when capture is not held.
+    const onLeave = (e: PointerEvent) => {
+      const sim = simRef.current;
+      if (!sim.pointerDown) return;
+      if (sim.pointerId !== -1 && canvas.hasPointerCapture(sim.pointerId)) return;
+      onUp(e);
+    };
+
     canvas.addEventListener("pointerdown", onDown, { passive: false });
     canvas.addEventListener("pointermove", onMove, { passive: false });
     canvas.addEventListener("pointerup", onUp);
     canvas.addEventListener("pointercancel", onUp);
-    // Fallback when setPointerCapture fails: leaving the canvas ends the stroke.
-    canvas.addEventListener("pointerleave", onUp);
+    canvas.addEventListener("pointerleave", onLeave);
     // If the browser drops capture (OS gesture, overlay, tab switch), clear rubbing
     // so heat/combo/frenzy do not stay stuck in the "finger down" path.
     canvas.addEventListener("lostpointercapture", onUp);
@@ -531,7 +540,7 @@ export function RubCanvas() {
       canvas.removeEventListener("pointermove", onMove);
       canvas.removeEventListener("pointerup", onUp);
       canvas.removeEventListener("pointercancel", onUp);
-      canvas.removeEventListener("pointerleave", onUp);
+      canvas.removeEventListener("pointerleave", onLeave);
       canvas.removeEventListener("lostpointercapture", onUp);
     };
   }, [applyRub, setRubbing, tick, started]);
