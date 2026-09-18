@@ -805,7 +805,10 @@ export const useGame = create<GameState>((set, get) => ({
 }));
 
 export function formatRubs(n: number): string {
-  if (!Number.isFinite(n)) return "0";
+  // Corrupted save / shop math can pass negatives; toFixed then paints "-5.0"
+  // into the HUD and share cards. Distinct from formatDistance (px) and
+  // incomeLabel (boost chip) negative guards.
+  if (!Number.isFinite(n) || n < 0) return "0";
   if (n < 1000) return n < 10 ? n.toFixed(1) : Math.floor(n).toString();
   const units = ["", "K", "M", "B", "T", "Qa", "Qi"];
   let v = n;
