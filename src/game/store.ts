@@ -605,6 +605,9 @@ export const useGame = create<GameState>((set, get) => ({
   },
 
   tick: (dt) => {
+    // NaN/Inf slip past arithmetic and poison heat/combo/frenzy; negative dt
+    // reverses decay (heat climbs while idle). Distinct from applyRub metric guards.
+    if (!Number.isFinite(dt) || dt <= 0) return;
     const state = get();
     const u = state.upgrades;
     const a = state.ascend;
