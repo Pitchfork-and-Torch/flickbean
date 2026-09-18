@@ -818,6 +818,10 @@ export function formatRubs(n: number): string {
 }
 
 export function formatDistance(px: number): string {
+  // Corrupted session / poisoned lifetimeDistance can be NaN/Inf; Math.floor(NaN)
+  // and Infinity.toFixed leak "NaNM px" into Stats. Distinct from formatRubs
+  // (already finite-guarded) and from applyRub metric guards.
+  if (!Number.isFinite(px) || px < 0) return "0 px";
   if (px < 1000) return `${Math.floor(px)} px`;
   if (px < 1_000_000) return `${(px / 1000).toFixed(1)}K px`;
   return `${(px / 1_000_000).toFixed(2)}M px`;
