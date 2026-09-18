@@ -398,7 +398,9 @@ export const useGame = create<GameState>((set, get) => ({
 
   applyRub: (distancePx, cx, cy, quality, speedPxPerSec, dtSec) => {
     const state = get();
-    if (!state.started || distancePx <= 0) return;
+    // NaN/Inf slip past `distancePx <= 0` (NaN comparisons are false) and poison
+    // rubs, heat, daily progress, and lifetimeDistance for the rest of the session.
+    if (!state.started || !Number.isFinite(distancePx) || distancePx <= 0) return;
 
     const u = state.upgrades;
     const a = state.ascend;
