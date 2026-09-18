@@ -253,7 +253,11 @@ export function RubCanvas() {
     canvas.addEventListener("pointermove", onMove, { passive: false });
     canvas.addEventListener("pointerup", onUp);
     canvas.addEventListener("pointercancel", onUp);
+    // Fallback when setPointerCapture fails: leaving the canvas ends the stroke.
     canvas.addEventListener("pointerleave", onUp);
+    // If the browser drops capture (OS gesture, overlay, tab switch), clear rubbing
+    // so heat/combo/frenzy do not stay stuck in the "finger down" path.
+    canvas.addEventListener("lostpointercapture", onUp);
 
     const loop = (now: number) => {
       const rawDt = (now - last) / 1000;
@@ -528,6 +532,7 @@ export function RubCanvas() {
       canvas.removeEventListener("pointerup", onUp);
       canvas.removeEventListener("pointercancel", onUp);
       canvas.removeEventListener("pointerleave", onUp);
+      canvas.removeEventListener("lostpointercapture", onUp);
     };
   }, [applyRub, setRubbing, tick, started]);
 
