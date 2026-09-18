@@ -573,6 +573,15 @@ export const useGame = create<GameState>((set, get) => ({
     };
     const prog = progressionPatch(state, partial);
     set({ ...partial, ...prog });
+    // Prize / climax / O-count land in applyRub; tick only autosaves every 2.5s.
+    // Closing the tab right after a frenzy drop used to lose that progress.
+    if (
+      prizes !== state.prizes ||
+      facesCollected !== state.facesCollected ||
+      climaxes !== state.climaxes
+    ) {
+      saveSnapshot(get());
+    }
   },
 
   tick: (dt) => {
