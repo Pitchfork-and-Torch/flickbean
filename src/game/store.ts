@@ -401,6 +401,15 @@ export const useGame = create<GameState>((set, get) => ({
     // NaN/Inf slip past `distancePx <= 0` (NaN comparisons are false) and poison
     // rubs, heat, daily progress, and lifetimeDistance for the rest of the session.
     if (!state.started || !Number.isFinite(distancePx) || distancePx <= 0) return;
+    // quality / speed / dtSec also poison gain, frenzy, and lastSpeed when non-finite
+    // (Math.min/max with NaN yields NaN). Distinct from the distancePx guard above.
+    if (
+      !Number.isFinite(quality) ||
+      !Number.isFinite(speedPxPerSec) ||
+      !Number.isFinite(dtSec)
+    ) {
+      return;
+    }
 
     const u = state.upgrades;
     const a = state.ascend;
