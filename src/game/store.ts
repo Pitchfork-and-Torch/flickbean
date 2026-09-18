@@ -45,6 +45,13 @@ const SAVE_KEY = "flickbean-v2";
 const SAVE_KEY_LEGACY = "clit-grok-me-v1";
 const PRIZE_COOLDOWN = 1.2;
 
+
+function finiteNumber(v: unknown, fallback = 0): number {
+  const n = typeof v === "number" ? v : Number(v);
+  return Number.isFinite(n) ? n : fallback;
+}
+
+
 let faceId = 1;
 let floaterId = 1;
 
@@ -302,7 +309,7 @@ export const useGame = create<GameState>((set, get) => ({
     if (!s) return;
     const upgrades = { ...emptyUpgrades(), ...s.upgrades };
     const beanMaster = Boolean(s.beanMaster) || isAllUpgradesMaxed(upgrades);
-    const prizes = s.prizes ?? 0;
+    const prizes = Math.max(0, Math.floor(finiteNumber(s.prizes ?? 0)));
     let faces = Array.isArray(s.faces) ? s.faces.slice(-FACE_PILE_MAX) : [];
     const savedFaces = Number.isFinite(s.facesCollected)
       ? Math.max(0, Math.floor(s.facesCollected as number))
@@ -321,12 +328,14 @@ export const useGame = create<GameState>((set, get) => ({
     if (beanMaster && tier2Complete(challenges)) orbital = true;
     if (orbital && tier3Complete(challenges)) voidbean = true;
 
+    // Corrupted / hand-edited saves can carry NaN/Inf; `??` only treats nullish,
+    // so non-finite counters would poison income, daily, and shop math for the session.
     const patch = {
-      rubs: s.rubs ?? 0,
-      totalRubs: s.totalRubs ?? 0,
-      lifetimeDistance: s.lifetimeDistance ?? 0,
-      bestCombo: s.bestCombo ?? 0,
-      climaxes: s.climaxes ?? 0,
+      rubs: Math.max(0, finiteNumber(s.rubs)),
+      totalRubs: Math.max(0, finiteNumber(s.totalRubs)),
+      lifetimeDistance: Math.max(0, finiteNumber(s.lifetimeDistance)),
+      bestCombo: Math.max(0, Math.floor(finiteNumber(s.bestCombo))),
+      climaxes: Math.max(0, Math.floor(finiteNumber(s.climaxes))),
       prizes,
       upgrades,
       beanMaster,
