@@ -419,6 +419,11 @@ export const useGame = create<GameState>((set, get) => ({
     ) {
       return;
     }
+    // Pointer coords also poison floater positions and share-card layout when
+    // non-finite (distinct from distance / quality / speed / dtSec guards).
+    if (!Number.isFinite(cx) || !Number.isFinite(cy)) {
+      return;
+    }
 
     const u = state.upgrades;
     const a = state.ascend;
