@@ -35,3 +35,7 @@
 /favicon.svg
   Cache-Control: public, max-age=86400
   Content-Type: image/svg+xml
+
+/apple-touch-icon.png
+  Cache-Control: public, max-age=86400
+  Content-Type: image/png
