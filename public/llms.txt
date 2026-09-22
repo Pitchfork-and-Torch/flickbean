@@ -20,3 +20,5 @@ No account. Progress stays in localStorage. Made by @suddenlyjon.
 ## Links
 - Live: https://flickbean.jonbailey.xyz/
 - Source: https://github.com/Pitchfork-and-Torch/flickbean
+
+Last reviewed: 2026-09-22
