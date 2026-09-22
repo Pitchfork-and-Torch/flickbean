@@ -42,8 +42,8 @@ export const Route = createRootRoute({
       { property: "og:site_name", content: "Flickbean" },
       { property: "og:locale", content: "en_US" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@SuddenlyJon" },
-      { name: "twitter:creator", content: "@SuddenlyJon" },
+      { name: "twitter:site", content: "@suddenlyjon" },
+      { name: "twitter:creator", content: "@suddenlyjon" },
       { name: "twitter:title", content: "Flickbean - rub, don't tap" },
       { name: "twitter:description", content: "Stop tapping. Start rubbing." },
       { name: "twitter:image", content: OG_IMAGE },
@@ -60,6 +60,8 @@ export const Route = createRootRoute({
       { rel: "stylesheet", href: "/fonts/fontshare/fonts.css" },
       { rel: "stylesheet", href: appCss },
       { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" },
+      { rel: "apple-touch-icon", href: "/icon-512.png", sizes: "512x512" },
+      { rel: "manifest", href: "/manifest.webmanifest" },
     ],
   }),
   component: RootComponent,
@@ -80,7 +82,10 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
         <HeadContent />
       </head>
       <body>
-        {children}
+        <a className="skip" href="#content">
+          Skip to content
+        </a>
+        <main id="content">{children}</main>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -98,8 +103,8 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
               image: OG_IMAGE,
               author: {
                 "@type": "Person",
-                name: "SuddenlyJon",
-                url: "https://x.com/SuddenlyJon",
+                name: "Jon Bailey",
+                url: "https://x.com/suddenlyjon",
               },
             }),
           }}

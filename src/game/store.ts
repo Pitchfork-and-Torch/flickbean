@@ -787,7 +787,7 @@ export function formatDistance(px: number): string {
 }
 
 export const SITE_NAME = "flickbean.jonbailey.xyz";
-export const X_HANDLE = "SuddenlyJon";
+export const X_HANDLE = "suddenlyjon";
 export const X_FOLLOW_URL = `https://x.com/intent/follow?screen_name=${X_HANDLE}`;
 export const X_PROFILE_URL = `https://x.com/${X_HANDLE}`;
 

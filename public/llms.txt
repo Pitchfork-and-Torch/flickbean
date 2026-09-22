@@ -9,7 +9,7 @@ Flickbean is a free browser game. Drag across the orb. Taps earn almost nothing.
 
 Adults only (18+). A confirmation checkbox must be checked before play.
 
-No account. Progress stays in localStorage. Made by @SuddenlyJon.
+No account. Progress stays in localStorage. Made by @suddenlyjon.
 
 ## How to play
 1. Press Start rubbing.

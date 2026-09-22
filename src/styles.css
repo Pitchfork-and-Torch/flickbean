@@ -166,3 +166,25 @@
     transition-duration: 0.01ms !important;
   }
 }
+
+
+/* Skip link (a11y) */
+.skip {
+  position: absolute;
+  left: 0.75rem;
+  top: 0.75rem;
+  z-index: 100;
+  padding: 0.5rem 0.75rem;
+  background: #f3ecee;
+  color: #0c0a0b;
+  border-radius: 0.375rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  transform: translateY(-220%);
+}
+.skip:focus {
+  transform: none;
+  outline: 2px solid #e8a4a8;
+  outline-offset: 2px;
+}

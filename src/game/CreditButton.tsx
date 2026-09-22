@@ -5,7 +5,7 @@ type Props = {
   compact?: boolean;
 };
 
-/** Opens X follow intent for @SuddenlyJon */
+/** Opens X follow intent for @suddenlyjon */
 export function CreditButton({ className = "", compact = false }: Props) {
   const openFollow = () => {
     window.open(X_FOLLOW_URL, "_blank", "noopener,noreferrer");
